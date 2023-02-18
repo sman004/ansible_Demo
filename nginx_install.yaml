@@ -12,11 +12,5 @@
         name: nginx
         state: started
         enabled: yes  # if you want to also enable nginx
-- name: Database_configuration
-  hosts: Databases
-  become: true
-  tasts:
-    - name:  Ensure mysql is installed
-      apt: 
         
 
