@@ -1,5 +1,5 @@
 ---
-- name: set up webserver
+- name: set-up webserver
   hosts: all
   become: true
   tasks:
