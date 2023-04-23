@@ -43,7 +43,7 @@
         host: '%'
         state: present   
 
-    - name: creating medium_db
+    - name: creating realcloud_db
       mysql_db:
         name: "{{db_name}}"
         state: present    
@@ -62,6 +62,27 @@
       service:
         name: mysql
         state: restarted
+
+- name: Install apache httpd
+  hosts: Apache-Server
+  become: true
+  tasks:  
+  - name: Install Apache Webserver
+    apt: 
+      name: apache2 
+      update_cache: yes 
+      state: latest
+  - name: Enable Apache on system reboot
+    service: 
+      name: httpd 
+      enabled: yes
+    notify: restart apache
+  handlers:
+  - name: restart apache
+    service: 
+      name: httpd 
+      state: restarted
+
 
         
 
