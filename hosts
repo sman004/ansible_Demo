@@ -1,6 +1,9 @@
 [Web-Servers]
-54.91.63.20
-3.81.11.74
+3.87.25.138
+3.80.246.222
+
+[Dbservers]
+54.164.13.160
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
