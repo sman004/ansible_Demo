@@ -127,18 +127,17 @@ resource "aws_instance" "ec2_instance" {
   }
 }
 
-# resource "aws_instance" "ec2_instance1" {
-#   ami                    = data.aws_ami.ubuntu.id
-#   instance_type          = "t2.micro"
-#   subnet_id              = aws_default_subnet.default_az1.id
-#   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-#   key_name               = "dec-key"
-#   user_data            = "${file("ansible_install.sh")}"
+resource "aws_instance" "ec2_instance1" {
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
+  subnet_id              = aws_default_subnet.default_az1.id
+  vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
+  key_name               = "dec-key"
 
-#   tags = {
-#     Name = "Ansible-server"
-#   }
-# }
+  tags = {
+    Name = "Database-server"
+  }
+}
 
 resource "aws_instance" "ec2_instance2" {
   ami                    = data.aws_ami.ubuntu.id
