@@ -13,9 +13,9 @@ pipeline{
           //ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: 'hosts', playbook: 'nginx_install.yaml', vaultCredentialsId: 'SSH-KEY'
         }
       }
-      stage("Print Nginx Installed"){
+      stage("Print Installation Is Complete"){
         steps{
-           sh"echo nginx installed on all servers"
+           sh"echo Your Installation Was Successful  On All Servers"
         }
       }
   }
