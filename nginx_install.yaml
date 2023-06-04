@@ -1,9 +1,8 @@
----
-- name: web-server confifuration
-  hosts: Web-Servers
+- name: web-server configuration
+  hosts: Nginx-Server
   become: true
   tasks:
-    - name: ensure nginx is at the latest version
+    - name: Installing Nginx web server
       apt:
         name: nginx
         state: latest
@@ -13,9 +12,10 @@
         state: started
         enabled: yes  # if you want to also enable nginx
 
+
 - name: setup Mysql 
   become: yes
-  hosts: Dbservers
+  hosts: Databeserver
   tasks:
     - name: Installing Mysql  and dependencies
       package:
@@ -35,7 +35,7 @@
         state: started
         enabled: yes    
 
-    - name: creating mysql user (medium_post)
+    - name: creating mysql user 
       mysql_user:
         name: "{{db_user}}"
         password: "{{db_pass}}"
@@ -69,7 +69,7 @@
   tasks:  
   - name: Install Apache Webserver
     apt: 
-      name: apache2 
+      name: apache2
       update_cache: yes 
       state: latest
   - name: Enable Apache on system reboot
@@ -82,6 +82,9 @@
     service: 
       name: apache2 
       state: restarted
+
+
+
 
 
         

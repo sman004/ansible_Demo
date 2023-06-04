@@ -3,16 +3,16 @@ provider "aws" {
   region    = "us-east-1"
   shared_config_files      = ["/Users/austi/.aws/conf"]
   shared_credentials_files = ["/Users/austi/.aws/credentials"]
-  profile                  = "dec-user"
+  profile                  = "resource_tagger"
 }
 
 # Create a remote backend for your terraform 
 terraform {
   backend "s3" {
-    bucket = "austinobioma-docker-statefile"
+    bucket = "austinobioma-docker-tfstate"
     region = "us-east-1"
-    profile = "dec-user"
-    key    = "ansible-statefile"
+    profile = "resource_tagger"
+    key    = "ansible-ftstate"
 
   }
 }
@@ -127,7 +127,7 @@ resource "aws_instance" "ec2_instance" {
   instance_type          = "t2.small"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "dec-key"
+  key_name               = "dec-key-pair"
   user_data            = "${file("jenkins_install.sh")}"
 
   tags = {
@@ -140,7 +140,7 @@ resource "aws_instance" "ec2_instance1" {
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "dec-key"
+  key_name               = "dec-key-pair"
 
   tags = {
     Name = "Database-server"
@@ -152,10 +152,10 @@ resource "aws_instance" "ec2_instance2" {
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "dec-key"
+  key_name               = "dec-key-pair"
 
   tags = {
-    Name = "App-server-1"
+    Name = "Nginx-Server"
   }
 }
 
@@ -164,9 +164,9 @@ resource "aws_instance" "ec2_instance3" {
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "dec-key"
+  key_name               = "dec-key-pair"
 
   tags = {
-    Name = "App-server-2"
+    Name = "Apache-Server"
   }
 }
