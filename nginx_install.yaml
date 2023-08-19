@@ -54,8 +54,8 @@
          line: 'bind-address = 0.0.0.0'
          backup: yes
       notify:
-         - Restart mysql         
-  handlers:
+         - Restart mysql   
+  handlers:      
     - name: Restart mysql
       service:
         name: mysql
@@ -103,6 +103,8 @@
         rule: allow
         port: "{{ http_port }}"
         proto: tcp
+      notify: 
+      - restart apache
 
     - name: restart apache
       service: 
