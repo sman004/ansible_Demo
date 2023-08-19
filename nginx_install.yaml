@@ -12,6 +12,8 @@
         state: started
         enabled: yes  # if you want to also enable nginx
 
+
+
 - name: setup Mysql 
   become: yes
   hosts: Databeserver
@@ -61,51 +63,51 @@
         name: mysql
         state: restarted
 
-    - name: Install apache httpd
-      hosts: Apache-Server
-      become: true
-      tasks:  
+
+- name: Install apache httpd
+  hosts: Apache-Server
+  become: true
+  tasks:  
       - name: Install Apache Webserver
         apt: 
           name: apache2
           update_cache: yes 
           state: latest
-    - name: Enable Apache on system reboot
-      service: 
-        name: apache2
-        enabled: yes
-      notify: restart apache
+      - name: Enable Apache on system reboot
+        service: 
+          name: apache2
+          enabled: yes
+        notify: restart apache
 
-    - name: Create document root for domain configured in host variable
-      file:
-         path: "/var/www/{{ http_host }}"
-         state: directory
-         owner: www-data
-         group: www-data
-         mode: '0755'
+      - name: Create document root for domain configured in host variable
+        file:
+          path: "/var/www/{{ http_host }}"
+          state: directory
+          owner: www-data
+          group: www-data
+          mode: '0755'
  
-    - name: Copy your index file
-      template:
+      - name: Copy your index file
+        template:
            src: "files/index-template.html"
            dest: "/var/www/{{ http_host }}/index.html"
  
-    - name: Set up virtuahHost
-      template:
+      - name: Set up virtuahHost
+        template:
            src: "files/apache-template.conf"
            dest: "/etc/apache2/sites-available/{{ http_conf }}"
  
-    - name: Enable site
-      command: a2ensite {{ http_conf }}
-      notify: restart-apache
+      - name: Enable site
+        command: a2ensite {{ http_conf }}
+        notify: restart-apache
  
-    - name: "UFW firewall allow HTTP on port {{ http_port }}"
-      ufw:
+      - name: "UFW firewall allow HTTP on port {{ http_port }}"
+        ufw:
         rule: allow
         port: "{{ http_port }}"
         proto: tcp
-      notify: 
-      - restart apache
 
+  handlers:
     - name: restart apache
       service: 
         name: apache2 
