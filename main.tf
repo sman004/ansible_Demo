@@ -1,9 +1,9 @@
 # configured aws provider with proper credentials
 provider "aws" {
-  region    = "us-east-1"
+  region    = "us-east-2"
   shared_config_files      = ["/Users/austi/.aws/conf"]
   shared_credentials_files = ["/Users/austi/.aws/credentials"]
-  profile                  = "resource_tagger"
+  profile                  = "austinobioma-realcloud"
 }
 
 # Create a remote backend for your terraform 
@@ -127,7 +127,7 @@ resource "aws_instance" "ec2_instance" {
   instance_type          = "t2.small"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "dec-key-pair"
+  key_name               = "april-batch"
   user_data            = "${file("jenkins_install.sh")}"
 
   tags = {
@@ -140,7 +140,7 @@ resource "aws_instance" "ec2_instance1" {
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "dec-key-pair"
+  key_name               = "april-batch"
 
   tags = {
     Name = "Database-server"
@@ -152,7 +152,7 @@ resource "aws_instance" "ec2_instance2" {
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "dec-key-pair"
+  key_name               = "april-batch"
 
   tags = {
     Name = "Nginx-Server"
@@ -164,7 +164,7 @@ resource "aws_instance" "ec2_instance3" {
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "dec-key-pair"
+  key_name               = "april-batch"
 
   tags = {
     Name = "Apache-Server"
