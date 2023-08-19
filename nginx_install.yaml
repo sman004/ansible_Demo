@@ -12,7 +12,6 @@
         state: started
         enabled: yes  # if you want to also enable nginx
 
----
 - name: setup Mysql 
   become: yes
   hosts: Databeserver
@@ -61,7 +60,6 @@
       service:
         name: mysql
         state: restarted
----
 
     - name: Install apache httpd
       hosts: Apache-Server
