@@ -3,3 +3,4 @@ db_pass: February123#
 db_name: realcloud
 http_host: 3.145.183.19
 http_port: 80
+http_conf: default.conf
