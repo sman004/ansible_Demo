@@ -6,7 +6,7 @@
       apt:
         name: nginx
         state: latest
-    - name: start nginx
+    - name: start nginx and enable nginx service
       service:
         name: nginx
         state: started
@@ -82,10 +82,3 @@
     service: 
       name: apache2 
       state: restarted
-
-
-
-
-
-        
-
