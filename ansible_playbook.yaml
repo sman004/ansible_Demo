@@ -106,9 +106,11 @@
           rule: allow
           port: "{{ http_port }}"
           proto: tcp
+        notify:
+          - Restart Apache
 
   handlers:
-    - name: restart apache
+    - name: Restart Apache
       service: 
         name: apache2 
         state: restarted
