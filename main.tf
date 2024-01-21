@@ -3,7 +3,11 @@ provider "aws" {
   region    = "us-east-2"
   shared_config_files      = ["/Users/austi/.aws/conf"]
   shared_credentials_files = ["/Users/austi/.aws/credentials"]
+<<<<<<< HEAD
+  profile                  = "austin"
+=======
   profile                  = "austinobioma-realcloud"
+>>>>>>> 2c29a45166040b26253dc5ee7034943564e44e39
 }
 
 # Create a remote backend for your terraform 
@@ -11,7 +15,7 @@ terraform {
   backend "s3" {
     bucket = "austinobioma-docker-tfstate"
     region = "us-east-1"
-    profile = "resource_tagger"
+    profile = "austin"
     key    = "ansible-ftstate"
 
   }
@@ -122,7 +126,7 @@ data "aws_ami" "ubuntu" {
 
 # launch the ec2 instance and install website
 
-resource "aws_instance" "ec2_instance" {
+resource "aws_instance" "ec2_instance1" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.small"
   subnet_id              = aws_default_subnet.default_az1.id
@@ -131,7 +135,8 @@ resource "aws_instance" "ec2_instance" {
   user_data            = "${file("jenkins_install.sh")}"
 
   tags = {
-    Name = "Jenkins-server"
+    Name = "Jenkins-Ansible-Server"
+
   }
 }
 
@@ -155,11 +160,23 @@ resource "aws_instance" "ec2_instance2" {
   key_name               = "april-batch"
 
   tags = {
-    Name = "Nginx-Server"
+    Name = "Database-server"
   }
 }
 
 resource "aws_instance" "ec2_instance3" {
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
+  subnet_id              = aws_default_subnet.default_az1.id
+  vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
+  key_name               = "april-batch"
+
+  tags = {
+    Name = "Nginx-Server"
+  }
+}
+
+resource "aws_instance" "ec2_instance4" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
