@@ -3,11 +3,7 @@ provider "aws" {
   region    = "us-east-2"
   shared_config_files      = ["/Users/austi/.aws/conf"]
   shared_credentials_files = ["/Users/austi/.aws/credentials"]
-<<<<<<< HEAD
   profile                  = "austin"
-=======
-  profile                  = "austinobioma-realcloud"
->>>>>>> 2c29a45166040b26253dc5ee7034943564e44e39
 }
 
 # Create a remote backend for your terraform 
