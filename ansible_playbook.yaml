@@ -69,7 +69,6 @@
         service: 
           name: apache2
           enabled: yes
-        notify: restart apache
 
       - name: Create document root for domain configured in host variable
         file:
@@ -91,7 +90,6 @@
  
       - name: Enable site
         command: a2ensite {{ http_conf }}
-        notify: restart-apache
  
       - name: "UFW firewall allow HTTP on port {{ http_port }}"
         ufw:
@@ -103,7 +101,7 @@
           - Restart mysql
 
   handlers:
-    - name: restart-apache
+    - name: Restart Apache
       service: 
         name: apache2 
         state: restarted
