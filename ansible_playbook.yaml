@@ -2,7 +2,7 @@
   hosts: Nginx-Servers
   become: true
   tasks:
-    - name: Installing Nginx Web Server
+    - name: Installing Nginx web server
       apt:
         name: nginx
         state: latest
@@ -18,7 +18,7 @@
   become: yes
   hosts: Database-Servers
   tasks:
-    - name: Installing Mysql Database And Dependencies
+    - name: Installing Mysql  and dependencies
       package:
        name: "{{item}}"
        state: present
@@ -54,15 +54,7 @@
          path: /etc/mysql/mysql.conf.d/mysqld.cnf
          regexp: '^bind-address'
          line: 'bind-address = 0.0.0.0'
-         backup: yes
-      notify:
-         - Restart mysql   
-  handlers:      
-    - name: Restart mysql
-      service:
-        name: mysql
-        state: restarted
-
+         backup: yes  
 
 - name: PlayBook 3
   hosts: Apache-Servers
@@ -77,7 +69,6 @@
         service: 
           name: apache2
           enabled: yes
-        notify: Restart Apache
 
       - name: Create document root for domain configured in host variable
         file:
@@ -92,30 +83,30 @@
            src: "files/index-template.html"
            dest: "/var/www/{{ http_host }}/index.html"
  
-      - name: Set up virtualHost
+      - name: Set up virtuahHost
         template:
            src: "files/apache-template.conf"
            dest: "/etc/apache2/sites-available/{{ http_conf }}"
  
       - name: Enable site
         command: a2ensite {{ http_conf }}
-        notify: restart-apache
  
       - name: "UFW firewall allow HTTP on port {{ http_port }}"
         ufw:
           rule: allow
           port: "{{ http_port }}"
           proto: tcp
+        notify:
+          - Restart Apache
+          - Restart mysql
 
   handlers:
     - name: Restart Apache
       service: 
         name: apache2 
         state: restarted
-
-
-
-
-
-        
-
+    - name: Restart mysql
+      service:
+        name: mysql
+        state: restarted
+    
