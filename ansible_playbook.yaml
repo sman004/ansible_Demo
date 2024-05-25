@@ -77,7 +77,7 @@
         service: 
           name: apache2
           enabled: yes
-        notify: restart apache
+        notify: Restart Apache
 
       - name: Create document root for domain configured in host variable
         file:
@@ -108,7 +108,7 @@
           proto: tcp
 
   handlers:
-    - name: restart apache
+    - name: Restart Apache
       service: 
         name: apache2 
         state: restarted
