@@ -98,7 +98,7 @@
           proto: tcp
         notify:
           - Restart Apache
-          - Restart mysql
+          - Restart Mysql
 
   handlers:
     - name: Restart Apache
