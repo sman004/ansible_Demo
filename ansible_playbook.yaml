@@ -105,4 +105,8 @@
       service: 
         name: apache2 
         state: restarted
+    - name: Restart Mysql
+      service:
+        name: mysql
+        state: restarted
     
